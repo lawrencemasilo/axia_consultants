@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Shield, Target, BarChart3, ChevronRight, Menu, X } from 'lucide-react';
-import heroVid from "../assets/hero/vid2.mp4";
+import { TrendingUp, Lightbulb, Shield, Settings, ChevronRight, Menu, X } from 'lucide-react';
+import heroVid from "../assets/hero/vid4.mp4";
+import InquiryFormModal from "../components/InquiryFormPopup";
+
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visibleSections, setVisibleSections] = useState({});
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +38,34 @@ export default function Home() {
 
   const navItems = ['Services', 'Approach', 'Industries', 'Contact'];
 
+
+  const services = [
+    {
+      icon: <TrendingUp className="w-7 h-7" />,
+      title: 'Financial Management',
+      description: 'Comprehensive financial oversight including compliance, reporting, forecasting, and strategic financial planning. We provide the clarity and control you need to make confident decisions.',
+      id: 'service-1'
+    },
+    {
+      icon: <Lightbulb className="w-7 h-7" />,
+      title: 'Business Advisory',
+      description: 'Strategic guidance tailored to your growth objectives. From market entry to scaling operations, we partner with you to navigate complexity and seize opportunity.',
+      id: 'service-2'
+    },
+    {
+      icon: <Shield className="w-7 h-7" />,
+      title: 'Compliance & Governance',
+      description: 'Proactive risk management and regulatory alignment. We help you build robust governance frameworks that protect your business and support sustainable growth.',
+      id: 'service-3'
+    },
+    {
+      icon: <Settings className="w-7 h-7" />,
+      title: 'Operational Excellence',
+      description: 'Process optimization, system integration, and workflow enhancement. Transform operations with data-driven insights, custom dashboards, and continuous improvement strategies.',
+      id: 'service-4'
+    }
+  ];
+
   return (
     <div className="bg-black text-white font-sans">
       {/* Glassmorphism Navbar */}
@@ -58,9 +89,12 @@ export default function Home() {
                 {item}
               </a>
             ))}
-            <button className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300">
-              Get Started
-            </button>
+            <button 
+                onClick={() => setInquiryOpen(true)}
+                className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300"
+                >
+                Get Started
+                </button>
           </div>
 
           <button 
@@ -70,6 +104,7 @@ export default function Home() {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+
 
         {mobileMenuOpen && (
           <div className="md:hidden bg-black/95 backdrop-blur-lg border-t border-white/10">
@@ -84,9 +119,13 @@ export default function Home() {
                   {item}
                 </a>
               ))}
-              <button className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all mt-2">
+              <button 
+                onClick={() => setInquiryOpen(true)}
+                className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300"
+                >
                 Get Started
-              </button>
+                </button>
+
             </div>
           </div>
         )}
@@ -139,64 +178,56 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 bg-white text-black">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className={`fade-in-section text-center mb-16 transition-all duration-1000 ${
-            visibleSections['services-intro'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`} id="services-intro">
-            <h2 className="text-4xl md:text-5xl font-light mb-4 tracking-tight">
-              Comprehensive <span className="font-semibold">Business Solutions</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We deliver integrated financial and operational support designed to drive growth, ensure compliance, and optimize performance.
-            </p>
-          </div>
+      <section className="py-20 px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Comprehensive Business Solutions
+          </h2>
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            We deliver integrated financial and operational support designed to drive growth, 
+            ensure compliance, and optimize performance.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                icon: <TrendingUp size={40} />,
-                title: 'Financial Management',
-                description: 'Comprehensive financial oversight including compliance, reporting, forecasting, and strategic financial planning. We provide the clarity and control you need to make confident decisions.',
-                id: 'service-1'
-              },
-              {
-                icon: <Target size={40} />,
-                title: 'Business Advisory',
-                description: 'Strategic guidance tailored to your growth objectives. From market entry to scaling operations, we partner with you to navigate complexity and seize opportunity.',
-                id: 'service-2'
-              },
-              {
-                icon: <Shield size={40} />,
-                title: 'Compliance & Governance',
-                description: 'Proactive risk management and regulatory alignment. We help you build robust governance frameworks that protect your business and support sustainable growth.',
-                id: 'service-3'
-              },
-              {
-                icon: <BarChart3 size={40} />,
-                title: 'Operational Excellence',
-                description: 'Process optimization, system integration, and workflow enhancement. Transform operations with data-driven insights, custom dashboards, and continuous improvement strategies.',
-                id: 'service-4'
-              }
-            ].map((service, index) => (
-              <div
-                key={index}
-                id={service.id}
-                className={`fade-in-section group p-8 border border-gray-200 hover:border-emerald-600 transition-all duration-500 ${
-                  visibleSections[service.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="text-emerald-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((service, index) => (
+            <div
+              key={service.id}
+              className="group relative bg-white p-8  hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-emerald-500 overflow-hidden"
+              style={{
+                animationDelay: `${index * 100}ms`
+              }}
+            >
+              
+              
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-14 h-14 border-[2px] border-emerald-500 text-emerald-500 mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300 group-hover:scale-110 transform">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl font-semibold mb-3">{service.title}</h3>
-                <p className="text-gray-700 leading-relaxed">{service.description}</p>
+
+                {/* Title */}
+                <h3 className="text-2xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-500 transition-colors duration-300">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-slate-600 leading-relaxed">
+                  {service.description}
+                </p>
+
+                {/* Decorative element */}
+                <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-blue-500 rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-300 blur-2xl" />
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Approach Section */}
       <section id="approach" className="py-24 bg-gray-50">
@@ -290,7 +321,7 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="text-xl font-light tracking-wider mb-4">
-                <span className="font-semibold">APEX</span> CONSULTING
+                <span className="font-semibold">AXIA</span>CONSULTANTS
               </div>
               <p className="text-gray-400 text-sm">
                 Strategic finance and operations consulting for high-performance businesses.
@@ -324,7 +355,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>© 2025 Apex Consulting. All rights reserved.</p>
+            <p>© 2025 Axia Consultants. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-emerald-400 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-emerald-400 transition-colors">Terms of Service</a>
@@ -332,6 +363,11 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <InquiryFormModal 
+        isOpen={inquiryOpen}
+        onClose={() => setInquiryOpen(false)}
+        />
+
     </div>
   );
 }
