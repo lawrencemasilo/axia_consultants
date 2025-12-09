@@ -1,43 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Lightbulb, Shield, Settings, ChevronRight, Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { TrendingUp, Lightbulb, Shield, Settings, ChevronRight } from 'lucide-react';
 import heroVid from "../assets/hero/vid4.mp4";
-import InquiryFormModal from "../components/InquiryFormPopup";
-
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visibleSections, setVisibleSections] = useState({});
-  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      const sections = document.querySelectorAll('.fade-in-section');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleSections(prev => ({...prev, [entry.target.id]: true}));
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
-      
-      sections.forEach((section) => observer.observe(section));
-      
-      return () => observer.disconnect();
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => ({...prev, [entry.target.id]: true}));
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    
+    sections.forEach((section) => observer.observe(section));
+    
+    return () => observer.disconnect();
   }, []);
-
-  const navItems = ['Services', 'Approach', 'Industries', 'Contact'];
-
 
   const services = [
     {
@@ -68,69 +53,6 @@ export default function Home() {
 
   return (
     <div className="bg-black text-white font-sans">
-      {/* Glassmorphism Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-black/40 backdrop-blur-md border-b border-white/10' 
-          : 'bg-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-2xl font-light tracking-wider">
-            <span className="font-semibold">AXIA</span> CONSULTANTS
-          </div>
-          
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a 
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-sm tracking-wide hover:text-emerald-400 transition-colors duration-300"
-              >
-                {item}
-              </a>
-            ))}
-            <button 
-                onClick={() => setInquiryOpen(true)}
-                className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300"
-                >
-                Get Started
-                </button>
-          </div>
-
-          <button 
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-black/95 backdrop-blur-lg border-t border-white/10">
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-sm tracking-wide hover:text-emerald-400 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item}
-                </a>
-              ))}
-              <button 
-                onClick={() => setInquiryOpen(true)}
-                className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300"
-                >
-                Get Started
-                </button>
-
-            </div>
-          </div>
-        )}
-      </nav>
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background */}
@@ -145,8 +67,6 @@ export default function Home() {
             src={heroVid}
             type="video/mp4"
           />
-          {/* Fallback gradient background if video fails to load */}
-          {/*<div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-emerald-950" />*/}
         </video>
 
         {/* Dark Overlay for text readability */}
@@ -166,68 +86,75 @@ export default function Home() {
             Strategic insight and operational precision for companies ready to scale with confidence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-emerald-600 hover:bg-emerald-500 px-8 py-4 text-lg tracking-wide transition-all duration-300 flex items-center justify-center gap-2">
+            <Link to="/services" className="bg-emerald-600 hover:bg-emerald-500 px-8 py-4 text-lg tracking-wide transition-all duration-300 flex items-center justify-center gap-2">
               Explore Our Services <ChevronRight size={20} />
-            </button>
-            <button className="border border-white/30 hover:bg-white/10 px-8 py-4 text-lg tracking-wide transition-all duration-300 backdrop-blur-sm">
+            </Link>
+            <Link to="/contact" className="border border-white/30 hover:bg-white/10 px-8 py-4 text-lg tracking-wide transition-all duration-300 backdrop-blur-sm">
               Schedule Consultation
-            </button>
+            </Link>
           </div>
         </div>
-
       </section>
 
       {/* Services Section */}
       <section className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Comprehensive Business Solutions
-          </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            We deliver integrated financial and operational support designed to drive growth, 
-            ensure compliance, and optimize performance.
-          </p>
-        </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+              Comprehensive Business Solutions
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              We deliver integrated financial and operational support designed to drive growth, 
+              ensure compliance, and optimize performance.
+            </p>
+          </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className="group relative bg-white p-8  hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-emerald-500 overflow-hidden"
-              style={{
-                animationDelay: `${index * 100}ms`
-              }}
-            >
-              
-              
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 border-[2px] border-emerald-500 text-emerald-500 mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300 group-hover:scale-110 transform">
-                  {service.icon}
+          {/* Services Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {services.map((service, index) => (
+              <div
+                key={service.id}
+                className="group relative bg-white p-8 hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-emerald-500 overflow-hidden"
+                style={{
+                  animationDelay: `${index * 100}ms`
+                }}
+              >
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div className="inline-flex items-center justify-center w-14 h-14 border-[2px] border-emerald-500 text-emerald-500 mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300 group-hover:scale-110 transform">
+                    {service.icon}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-500 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-slate-600 leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Decorative element */}
+                  <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-blue-500 rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-300 blur-2xl" />
                 </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-semibold text-slate-900 mb-3 group-hover:text-emerald-500 transition-colors duration-300">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-600 leading-relaxed">
-                  {service.description}
-                </p>
-
-                {/* Decorative element */}
-                <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-blue-500 rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-300 blur-2xl" />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          {/* View All Services Link */}
+          <div className="text-center mt-12">
+            <Link 
+              to="/services" 
+              className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-500 font-semibold text-lg transition-colors"
+            >
+              View All Services <ChevronRight className="w-5 h-5" />
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* Approach Section */}
       <section id="approach" className="py-24 bg-gray-50">
@@ -305,9 +232,9 @@ export default function Home() {
             Connect with our team to discuss how we can support your strategic and operational goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-black hover:bg-gray-900 px-8 py-4 text-lg tracking-wide transition-all duration-300">
+            <Link to="/contact" className="bg-black hover:bg-gray-900 px-8 py-4 text-lg tracking-wide transition-all duration-300">
               Schedule Consultation
-            </button>
+            </Link>
             <button className="border-2 border-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg tracking-wide transition-all duration-300">
               Download Capabilities Brief
             </button>
@@ -330,26 +257,26 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-3">Services</h4>
               <ul className="text-gray-400 text-sm space-y-2">
-                <li>Financial Management</li>
-                <li>Business Advisory</li>
-                <li>Compliance & Governance</li>
-                <li>Operational Excellence</li>
+                <li><Link to="/services" className="hover:text-emerald-400 transition-colors">Financial Management</Link></li>
+                <li><Link to="/services" className="hover:text-emerald-400 transition-colors">Business Advisory</Link></li>
+                <li><Link to="/services" className="hover:text-emerald-400 transition-colors">Compliance & Governance</Link></li>
+                <li><Link to="/services" className="hover:text-emerald-400 transition-colors">Operational Excellence</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-3">Company</h4>
               <ul className="text-gray-400 text-sm space-y-2">
-                <li>About Us</li>
-                <li>Careers</li>
-                <li>Case Studies</li>
-                <li>Insights</li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Case Studies</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Insights</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-3">Contact</h4>
               <ul className="text-gray-400 text-sm space-y-2">
-                <li>contact@axiaconsultants.co.za</li>
-                <li>+1 (555) 123-4567</li>
+                <li><a href="mailto:contact@axiaconsultants.co.za" className="hover:text-emerald-400 transition-colors">contact@axiaconsultants.co.za</a></li>
+                <li><a href="tel:+27111234567" className="hover:text-emerald-400 transition-colors">+27 (11) 123-4567</a></li>
                 <li>South Africa</li>
               </ul>
             </div>
@@ -363,11 +290,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <InquiryFormModal 
-        isOpen={inquiryOpen}
-        onClose={() => setInquiryOpen(false)}
-        />
-
     </div>
   );
 }
