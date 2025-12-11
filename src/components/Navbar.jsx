@@ -26,8 +26,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Services', path: '/services' },
-    //{ name: 'About', path: '/#approach' },
-    //{ name: 'Industries', path: '/#industries' },
+    { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -94,7 +93,7 @@ export default function Navbar() {
               )
             ))}
             <button 
-              
+              onClick={() => setInquiryOpen(true)}
               className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300 text-white"
             >
               Get Started

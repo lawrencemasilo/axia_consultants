@@ -243,50 +243,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black border-t border-white/10 py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="text-xl font-light tracking-wider mb-4">
-                <span className="font-semibold">AXIA</span> CONSULTANTS
-              </div>
-              <p className="text-gray-400 text-sm">
-                Strategic finance and operations consulting for high-performance businesses.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-3">Services</h4>
-              <ul className="text-gray-400 text-sm space-y-2">
-                <li>Financial Management</li>
-                <li>Business Advisory</li>
-                <li>Compliance & Governance</li>
-                <li>Operational Excellence</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-3">Company</h4>
-              <ul className="text-gray-400 text-sm space-y-2">
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Case Studies</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Insights</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-3">Contact</h4>
-              <ul className="text-gray-400 text-sm space-y-2">
-                <li><a href="mailto:contact@axiaconsultants.co.za" className="hover:text-emerald-400 transition-colors">contact@axiaconsultants.co.za</a></li>
-                <li><a href="tel:+27111234567" className="hover:text-emerald-400 transition-colors">+27 (11) 123-4567</a></li>
-                <li>Sandton, South Africa</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-white/10 pt-8 text-center text-gray-400 text-sm">
-            <p>© 2025 Axia Consultants. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
