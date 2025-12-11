@@ -92,12 +92,11 @@ export default function Navbar() {
                 </Link>
               )
             ))}
-            <button 
-              onClick={() => setInquiryOpen(true)}
+            <Link to="/contact"
               className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300 text-white"
             >
               Get Started
-            </button>
+            </Link>
           </div>
 
           <button 
@@ -139,15 +138,12 @@ export default function Navbar() {
                   </Link>
                 )
               ))}
-              <button 
-                onClick={() => {
-                  setInquiryOpen(true);
-                  setMobileMenuOpen(false);
-                }}
+
+              <Link to="/contact"
                 className="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 text-sm tracking-wide transition-all duration-300 text-white"
               >
                 Get Started
-              </button>
+              </Link >
             </div>
           </div>
         )}
