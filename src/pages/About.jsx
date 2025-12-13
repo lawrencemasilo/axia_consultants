@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Award, Target, Users, TrendingUp, Lightbulb, Shield, Heart, ChevronRight, Linkedin, Mail } from 'lucide-react';
+import Neo from "../assets/neo.png";
+import Obakeng from "../assets/obakeng.jpg";
 
 export default function About() {
   const [visibleSections, setVisibleSections] = useState({});
@@ -51,15 +53,17 @@ export default function About() {
   const team = [
     {
       name: 'Obakeng Kgabi',
+      image: Obakeng,
       role: 'Chief Executive Officer',
       credential: '',
-      bio: 'Obakeng is a strategic and detail-oriented leader with deep expertise in financial management and corporate advisory. As a Chartered Accountant, he has supported organizations through high-stakes decisions, complex financial restructures, and growth transitions. His approach blends analytical rigour with sound judgement, enabling him to guide companies toward long-term stability, compliance, and sustainable expansion. Obakeng is trusted for his ability to navigate financial complexity while maintaining a clear strategic vision.',
+      bio: 'Obakeng is a strategic and detail-oriented leader with strong expertise across financial management, auditing, and corporate advisory. He has supported organizations through high-stakes decisions, complex financial challenges, and growth transitions. His approach blends analytical rigour with sound judgement, enabling him to guide companies toward long-term stability, compliance, and sustainable expansion. Obakeng is trusted for his ability to navigate financial complexity while maintaining a clear strategic vision.',
       specialties: ['Financial Strategy', 'Corporate Governance', 'M&A Advisory', 'Risk Management'],
       email: 'obakeng@axiaconsultants.co.za',
       linkedin: '#'
     },
     {
       name: 'Neo Masilo',
+      image: Neo,
       role: 'Managing Director',
       credential: '',
       bio: 'Neo is a decisive and forward-thinking leader known for turning ideas into actionable, measurable results. With a practical approach to strategy and a strong focus on execution, he excels in building structure, driving operational clarity, and ensuring teams deliver at a high standard. His leadership style balances discipline, adaptability, and a deep commitment to creating systems that scale. Neo is driven by impact, guided by strong principles, and trusted for his ability to bring stability, direction, and momentum to fast-growing organizations.',
@@ -202,7 +206,7 @@ export default function About() {
                 {/* Header */}
                 <div className="bg-gradient-to-br from-slate-900 to-emerald-950 p-8 text-white text-center">
                   <div className="w-32 h-32 mx-auto mb-4 bg-emerald-600 rounded-full flex items-center justify-center text-4xl font-bold">
-                    {member.name.split(' ').map(n => n[0]).join('')}
+                    <img src={member.image} alt="" className="rounded-full" />
                   </div>
                   <h3 className="text-2xl font-semibold mb-1">{member.name}</h3>
                   <p className="text-emerald-400 font-medium mb-1">{member.role}</p>
